@@ -107,7 +107,7 @@ function custom_calc_process()
 	
 	var currency = $('select[name=currency]').val();
 	//var currency_exchange = 11000/8600; //Currency exchange rate
-	var currency_exchange = 1.35876; //Currency exchange rate
+	var currency_exchange = parseFloat(1.35876); //Currency exchange rate
 	
 	var NDS = 0.2;
 	
@@ -152,7 +152,7 @@ function custom_calc_process()
 	//Считаем только в ЕВРО
 	if(currency == 'usd')
 	{
-		CarPrice = CarPrice * currency_exchange;
+		CarPrice = CarPrice / currency_exchange;
 	}	
 	var _price = CarPrice;
 	var duty = parseInt(CountDuty(CarStatus,CarFuel,CarYear,CarMonth,CarVolume,CarPrice));
