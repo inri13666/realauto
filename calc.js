@@ -169,7 +169,7 @@ function custom_calc_process()
                                    data += '<td> '+parseFloat((duty+_price) * NDS).toFixed(0)+' € <span class="usd-result"> ('+ parseFloat((duty+_price) * currency_exchange * NDS).toFixed(0)+' $)</span></td>'
                                    data += '</tr>';
                                    data += '<tr><td width="65%">Итого:</td>';
-                                   data += '<td class="red"> '+ parseFloat(duty * (1+NDS)).toFixed(0) +' € <span class="usd-result"> (' +parseFloat(duty * currency_exchange * (1+NDS)).toFixed(0)+ ' $)</span></td>';
+                                   data += '<td class="red"> '+ parseFloat(duty + (duty+_price) * NDS).toFixed(0) +' € <span class="usd-result"> (' +parseFloat(duty * currency_exchange + (duty+_price) * currency_exchange * NDS).toFixed(0)+ ' $)</span></td>';
                                    data += '</tr>';
 								   }
 	data += '</tbody></table>';
