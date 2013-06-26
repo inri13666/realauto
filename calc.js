@@ -185,11 +185,15 @@ function custom_calc_process() {
 
 
     var currency = $('select[name=currency]').val();
-
+    var currency_exchange_local = parseFloat(1.35876); //Currency exchange rate
     if (!window.currency_exchange) {
-        var currency_exchange = parseFloat(1.35876); //Currency exchange rate
+
+    }else{
+        currency_exchange_local = window.currency_exchange;
     }
 
+    console.log(currency_exchange_local);
+    
     var NDS = 0.2;
 
     if ($("#lico_1").attr("checked")) {
@@ -225,23 +229,23 @@ function custom_calc_process() {
 
     //Считаем только в ЕВРО
     if (currency == 'usd') {
-        CarPrice = CarPrice / currency_exchange;
+        CarPrice = CarPrice / currency_exchange_local;
     }
     var _price = CarPrice;
     var duty = parseInt(CountDuty(CarStatus, CarFuel, CarYear, CarMonth, CarVolume, CarPrice));
     var data = "";//= "Стоимость : " + CountDuty(CarStatus,CarFuel,CarYear,CarVolume,CarPrice);
     data = '<table style="width:500px">' +
         '<tbody><tr><td width="65%">Сумма таможенной пошлины составит:</td>' +
-        '<td> ' + parseFloat(duty).toFixed(0) + ' € <span class="usd-result"> (' + parseFloat(duty * currency_exchange).toFixed(0) + ' $)</span></td>' +
+        '<td> ' + parseFloat(duty).toFixed(0) + ' € <span class="usd-result"> (' + parseFloat(duty * currency_exchange_local).toFixed(0) + ' $)</span></td>' +
         '</tr>';
     if (2 == CarStatus) {
 
         data += '<tr><td width="65%">Сумма НДС: <br>';
         data += '<span style="font-weight: normal; font-size: 10px;">20% от полной стоимости (с 24.01.2012)</span></td>';
-        data += '<td> ' + parseFloat((duty + _price) * NDS).toFixed(0) + ' € <span class="usd-result"> (' + parseFloat((duty + _price) * currency_exchange * NDS).toFixed(0) + ' $)</span></td>'
+        data += '<td> ' + parseFloat((duty + _price) * NDS).toFixed(0) + ' € <span class="usd-result"> (' + parseFloat((duty + _price) * currency_exchange_local * NDS).toFixed(0) + ' $)</span></td>'
         data += '</tr>';
         data += '<tr><td width="65%">Итого:</td>';
-        data += '<td class="red"> ' + parseFloat(duty + (duty + _price) * NDS).toFixed(0) + ' € <span class="usd-result"> (' + parseFloat(duty * currency_exchange + (duty + _price) * currency_exchange * NDS).toFixed(0) + ' $)</span></td>';
+        data += '<td class="red"> ' + parseFloat(duty + (duty + _price) * NDS).toFixed(0) + ' € <span class="usd-result"> (' + parseFloat(duty * currency_exchange_local + (duty + _price) * currency_exchange_local * NDS).toFixed(0) + ' $)</span></td>';
         data += '</tr>';
     }
     data += '</tbody></table>';
